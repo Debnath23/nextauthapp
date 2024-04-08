@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
-export default function page() {
+export default function SignUpPage() {
   const router = useRouter();
 
   const [user, setUser] = useState({
@@ -38,7 +39,42 @@ export default function page() {
 
   return <div>
     <h1>{loading ? "Processing" : "Signup"}</h1>
+
     <label htmlFor="username">Username: </label>
-    <input type="text" required />
+    <input
+    id="username"
+    value={user.username}
+    onChange={(e) => setUser({
+      ...user, username: e.target.value
+    })}
+    type="text"
+    placeholder="username" />
+
+    <label htmlFor="email">Email: </label>
+    <input
+    id="email"
+    value={user.email}
+    onChange={(e) => setUser({
+      ...user, email: e.target.value
+    })}
+    type="email"
+    placeholder="email" />
+
+    <label htmlFor="password">Password: </label>
+    <input
+    id="password"
+    value={user.password}
+    onChange={(e) => setUser({
+      ...user, password: e.target.value
+    })}
+    type="password"
+    placeholder="password" />
+
+    <button
+    onClick={onSignup} 
+    type="button">
+      {buttonDisabled ? "No signup" : "Signup"}
+    </button>
+    <Link href="/login">Visit login page</Link>
   </div>;
 }
