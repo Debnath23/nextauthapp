@@ -1,9 +1,20 @@
-import Image from "next/image";
+'use client';
+import React from "react";
+import Featured from "@/components/featured/Featured";
+import styles from "./homepage.module.css";
+import CategoryList from "@/components/categoryList/CategoryList";
+import CardList from "@/components/cardList/CardList";
+import Menu from "@/components/menu/Menu";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h2>Go to your profile</h2>
-    </main>
+      <div className={styles.container}>
+      <Featured />
+      <CategoryList />
+      <div className={styles.content}>
+        <CardList />
+        <Menu />
+      </div>
+    </div>
   );
 }
