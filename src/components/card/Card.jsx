@@ -3,25 +3,26 @@ import styles from "./card.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
-function Card() {
+function Card({ key, post }) {
   return (
-    <div className={styles.container}>
-      <div className={styles.imageContainer}>
-        <Image src="/p1.png" alt="img" fill />
-      </div>
+    <div className={styles.container} key={key}>
+      {post.img && (
+        <div className={styles.imageContainer}>
+          <Image src={post.img} alt="img" fill className={styles.image} />
+        </div>
+      )}
       <div className={styles.textContainer}>
         <div className={styles.detail}>
-          <span className={styles.date}>22.05.24</span>
-          <span className={styles.category}> CULTURE</span>
+          <span className={styles.date}>
+            {post.createdAt.substring(0, 10)} -{" "}
+          </span>
+          <span className={styles.category}> {post.catSlug}</span>
         </div>
-        <Link href="/">
-          <h1>Lorem ipsum dolor sit amet consectetur.</h1>
+        <Link href={`/posts/${post.slug}`}>
+          <h1>{post.title}</h1>
         </Link>
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. In, hic
-          enim! Dignissimos atque neque ad omnis ipsa aperiam libero in!
-        </p>
-        <Link href="/">Read More</Link>
+        <p className={styles.desc}>{post.desc.substring(0, 10)}</p>
+        <Link href={`/posts/${post.slug}`}>Read More</Link>
       </div>
     </div>
   );

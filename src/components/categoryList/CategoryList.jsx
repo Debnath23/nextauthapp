@@ -3,26 +3,25 @@ import styles from "./categoryList.module.css";
 import Link from "next/link";
 import Image from "next/image";
 
-const getCategoriesData = async () => {
-  const response = await fetch("http:localhost:3000/api/categories/add", {
+const getData = async () => {
+  const res = await fetch("http://localhost:3000/api/categories", {
     cache: "no-store",
   });
 
-  if (!response.ok) {
-    return new Error("Failed to load categories");
+  if (!res.ok) {
+    throw new Error("Failed");
   }
 
-  const data = await response.json();
-  return data;
+  return res.json();
 };
 
-function CategoryList() {
-  const data = getCategoriesData();
+const CategoryList = () => {
+  const data = getData();
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Popular Categories</h1>
       <div className={styles.categories}>
-        {data.length > 0 ? (
+      {data.length > 0 ? (
           data.map((category) => (
             <Link
               key={category._id}
@@ -44,75 +43,9 @@ function CategoryList() {
         ) : (
           <p>No categories available</p>
         )}
-
-        {/* <Link
-          href="/blog?cat=fashion"
-          className={`${styles.category} ${styles.fashion}`}
-        >
-          <Image
-            src="/fashion.png"
-            alt="img"
-            width={40}
-            height={40}
-            className={styles.image}
-          />
-          fashion
-        </Link>
-        <Link
-          href="/blog?cat=food"
-          className={`${styles.category} ${styles.food}`}
-        >
-          <Image
-            src="/food.png"
-            alt="img"
-            width={40}
-            height={40}
-            className={styles.image}
-          />
-          food
-        </Link>
-        <Link
-          href="/blog?cat=culture"
-          className={`${styles.category} ${styles.culture}`}
-        >
-          <Image
-            src="/culture.png"
-            alt="img"
-            width={40}
-            height={40}
-            className={styles.image}
-          />
-          culture
-        </Link>
-        <Link
-          href="/blog?cat=travel"
-          className={`${styles.category} ${styles.travel}`}
-        >
-          <Image
-            src="/travel.png"
-            alt="img"
-            width={40}
-            height={40}
-            className={styles.image}
-          />
-          travel
-        </Link>
-        <Link
-          href="/blog?cat=coding"
-          className={`${styles.category} ${styles.coding}`}
-        >
-          <Image
-            src="/coding.png"
-            alt="img"
-            width={40}
-            height={40}
-            className={styles.image}
-          />
-          coding
-        </Link> */}
       </div>
     </div>
   );
-}
+};
 
 export default CategoryList;

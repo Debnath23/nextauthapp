@@ -5,9 +5,9 @@ import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Featured from "@/components/featured/Featured";
-import styles from "./homepage.module.css";
+// import styles from "./homepage.module.css";
 import CategoryList from "@/components/categoryList/CategoryList";
-import CardList from "@/components/cardList/CardList";
+// import CardList from "@/components/cardList/CardList";
 import Menu from "@/components/menu/Menu";
 
 export default function page() {
@@ -77,7 +77,7 @@ export default function page() {
       <Featured />
       <CategoryList />
       <div className="flex gap-[50px]">
-        <CardList />
+        {/* <CardList /> */}
         <Menu />
       </div>
     </>

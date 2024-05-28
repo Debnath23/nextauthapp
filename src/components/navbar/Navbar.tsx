@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./navbar.module.css";
 import style from "./authLinks.module.css";
 import Link from "next/link";
@@ -7,21 +7,12 @@ import ThemeToggle from "../themeToggle/ThemeToggle";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/providers/AuthProvider";
 
 const Navbar = () => {
   const router = useRouter();
-  const [data, setData] = useState("nothing");
   const [open, setOpen] = useState(false);
-
-  const getUserDetails = async () => {
-    try {
-      const response = await axios.post("/api/users/aboutme");
-      setData(response.data.data._id);
-    } catch (error: any) {
-      console.log(error.message);
-      toast.error(error.message);
-    }
-  };
+  const { isAuthenticated, userData } = useAuth();
 
   const logout = async () => {
     try {
@@ -34,15 +25,11 @@ const Navbar = () => {
     }
   };
 
-  useEffect(() => {
-    getUserDetails();
-  }, []);
-
   return (
     <div className={styles.container}>
       <div className={styles.logo}>Blogging</div>
       <div className={styles.links}>
-        {data === "nothing" ? (
+        {!isAuthenticated ? (
           <div></div>
         ) : (
           <>
@@ -90,7 +77,7 @@ const Navbar = () => {
             <Link href="/">Home</Link>
             <Link href="/about">About</Link>
             <Link href="/contact">Contact</Link>
-            {data === "nothing" ? (
+            {!isAuthenticated ? (
               <Link href="/login">Login</Link>
             ) : (
               <>
